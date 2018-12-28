@@ -1,0 +1,44 @@
+class Solution {
+    public int numSimilarGroups(String[] A) {
+        
+        int len = A.length;
+        if(len==0) return 0;
+        groups = len;
+        int[] arr = new int[len];
+        
+        for(int i=0;i<len;i++)
+            arr[i]=i;
+        
+        for(int i=0;i<len-1;i++){
+            for(int j=i+1;j<len;j++){
+                if(check(A[i], A[j]))
+                    union(arr, i, j);
+            }
+        }
+        return groups;
+    }
+    boolean check(String a, String b){
+        int count=0;
+        for(int i=0;i<a.length();i++){
+            if(a.charAt(i)!=b.charAt(i))
+                    count++;
+            if(count>2)
+                break;
+        }
+        return count==0 || count==2;
+    }
+    int groups;
+    void union(int[] arr, int i, int j){
+        int x = find(arr, i);
+        int y = find(arr, j);
+        if(x==y) return;
+        groups--;
+        arr[x]=y;
+    }
+    int find(int[] arr, int x){
+        if(arr[x]==x)
+            return x;
+        arr[x]=find(arr, arr[x]);
+        return arr[x];
+    }
+}
