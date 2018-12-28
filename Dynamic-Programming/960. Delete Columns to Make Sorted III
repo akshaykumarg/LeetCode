@@ -1,6 +1,7 @@
 class Solution {
     public int minDeletionSize(String[] A) {
-        
+        //Idea is to find the largest increasing sub sequence.
+        //Here we are treating each column as each element.
         int n = A.length;
         int len = A[0].length();
         int[] dp = new int[len];
