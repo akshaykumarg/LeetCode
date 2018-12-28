@@ -1,0 +1,40 @@
+class Solution {
+    public int numSimilarGroups(String[] A) {
+        //Using DFS to find the number groups of similar Strings.
+        int len = A.length;
+        if(len==0 || len==1) return len;
+        
+        int count=0;
+        
+        for(int i=0;i<len;i++){
+            if(A[i]==null)
+                continue;
+            String temp = A[i];
+            A[i]=null;
+            count++;
+            dfs(A, temp);
+        }
+        return count;
+    }
+    void dfs(String[] arr, String s){
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]==null)
+                continue;
+            if(similar(arr[i], s)){
+                String temp = arr[i];
+                arr[i]=null;
+                dfs(arr, temp);
+            }
+        }
+    }
+    boolean similar(String a, String b){
+        int trace=0;
+        for(int i=0;i<a.length();i++){
+            if(a.charAt(i)==b.charAt(i))
+                continue;
+            trace++;
+            if(trace>2) break;
+        }
+        return trace<=2;
+    }
+}
