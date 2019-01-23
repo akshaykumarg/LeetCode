@@ -18,8 +18,11 @@ class Solution {
         for (int i = 0; i < nums.length; i++) {
             nums[i] = result[i];
         }
-        // System.out.println(Arrays.toString(result));
-        // nums = result;
-        // System.out.println(Arrays.toString(nums));
+        
     }
 }
+
+//Time complexity : O(n). One pass is used to put the numbers in the new array. 
+//And another pass to copy the new array to the original one.
+
+//Space complexity : O(n). Another array of the same size is used.
