@@ -1,3 +1,21 @@
+// On a 2x3 board, there are 5 tiles represented by the integers 1 through 5, and an empty square represented by 0.
+
+// A move consists of choosing 0 and a 4-directionally adjacent number and swapping it.
+
+// The state of the board is solved if and only if the board is [[1,2,3],[4,5,0]].
+
+// Given a puzzle board, return the least number of moves required so that the state of the board is solved. 
+//If it is impossible for the state of the board to be solved, return -1.
+
+// Examples:
+
+// Input: board = [[1,2,3],[4,0,5]]
+// Output: 1
+// Explanation: Swap the 0 and the 5 in one move.
+// Input: board = [[1,2,3],[5,4,0]]
+// Output: -1
+// Explanation: No number of moves will make the board solved.
+
 class Solution {
     //Using BFS to solve the problem.
     HashSet<String> set;
