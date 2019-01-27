@@ -21,53 +21,48 @@ All inputs are guaranteed to be non-empty strings.
 
 class Trie {
 
-    boolean trace = false;
-    Trie[] arr;
-    /** Initialize your data structure here. */
+    class Node{
+        boolean isWord;
+        Node[] arr = new Node[26];
+    }
+    
+    public Node root;
+    
     public Trie() {
-        arr = new Trie[26];
+        root = new Node();
     }
     
-    /** Inserts a word into the trie. */
     public void insert(String word) {
-        
-        Trie[] temp = arr;
-        
-        for(int i=0;i<word.length();i++){
-            char c = word.charAt(i);
-            if(temp[c-'a']==null){
-                temp[c-'a'] = new Trie();
-            }
-            if(i==word.length()-1){
-                temp[c-'a'].trace = true;
-            }
-            temp=temp[c-'a'].arr;
-        }
-        
+        add(word, root);
     }
     
-    /** Returns if the word is in the trie. */
+    void add(String word, Node root){
+        if(word.length()==0){
+            root.isWord = true;
+            return;
+        }
+        if(root.arr[word.charAt(0)-'a']==null)
+            root.arr[word.charAt(0)-'a']= new Node();
+        add(word.substring(1), root.arr[word.charAt(0)-'a']);
+    }
+    
+    
     public boolean search(String word) {
-        Trie[] temp = arr;
-        return srh(word, temp, false);
+        return find(word, root);
     }
     
-    boolean srh(String s, Trie[] temp, boolean flag){
-        if(s.length()==0){
-            return flag;
-        }
-        return temp[s.charAt(0)-'a']!=null && srh(s.substring(1), temp[s.charAt(0)-'a'].arr, temp[s.charAt(0)-'a'].trace);
+    boolean find(String word, Node root){
+        if(word.length()==0) return root.isWord;
+        return root.arr[word.charAt(0)-'a']!=null && find(word.substring(1), root.arr[word.charAt(0)-'a']);
     }
-
-    /** Returns if there is any word in the trie that starts with the given prefix. */
+    
     public boolean startsWith(String prefix) {
-        Trie[] temp = arr;
-        return sh(prefix, temp);
+        return with(prefix,root);
     }
     
-    boolean sh(String prefix, Trie[] temp){
-        if(prefix.length()==0) return true;
-        return temp[prefix.charAt(0)-'a']!=null && sh(prefix.substring(1), temp[prefix.charAt(0)-'a'].arr);
+    boolean with(String s, Node root){
+        if(s.length()==0) return true;
+        return root.arr[s.charAt(0)-'a']!=null && with(s.substring(1), root.arr[s.charAt(0)-'a']);
     }
     
 }
